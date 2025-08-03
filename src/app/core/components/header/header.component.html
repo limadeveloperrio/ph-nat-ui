@@ -1,0 +1,18 @@
+<header class="header">
+  <nav class="navbar">
+    <div class="logo">Natixis ProductHub</div>
+
+    <!-- Menu só aparece se o usuário estiver logado -->
+    <ul class="menu" *ngIf="isLoggedIn()">
+      <li><a routerLink="/products">📦 Lista Produtos</a></li>
+      <li>
+        <a [routerLink]="['/products', 'new']">➕ Adicionar Produto ID</a>
+      </li>
+      <li><a routerLink="/products/search">🔍 Buscar Produto</a></li>
+    </ul>
+    <div class="user-info" *ngIf="isLoggedIn()">
+      <span>👋 Olá, {{ username }}</span>
+      <button class="btn-logout" (click)="logout()">Sair</button>
+    </div>
+  </nav>
+</header>

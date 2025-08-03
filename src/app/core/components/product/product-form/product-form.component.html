@@ -1,0 +1,49 @@
+<h2>{{ isNew ? 'Adicionar Produto' : 'Buscar/Editar Produto' }}</h2>
+
+<!-- 🔹 Campo de busca só aparece na rota /products/search -->
+<div *ngIf="showSearchField" style="margin-bottom: 16px; display: flex; gap: 8px; align-items: center;">
+  <mat-form-field appearance="outline" style="width: 150px;">
+    <mat-label>ID</mat-label>
+    <input matInput [formControl]="searchIdControl" placeholder="Digite o ID" />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="searchProduct()">
+    <mat-icon>search</mat-icon> Buscar
+  </button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="save()" style="max-width: 400px; margin-top: 16px;">
+  <!-- Nome -->
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="name" placeholder="Nome do produto" />
+    <mat-error *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+      Nome é obrigatório.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Preço -->
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>Preço</mat-label>
+    <input matInput type="number" formControlName="price" placeholder="Preço em reais" />
+    <mat-error *ngIf="form.get('price')?.invalid && form.get('price')?.touched">
+      O preço deve ser maior ou igual a 0.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Descrição -->
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>Descrição</mat-label>
+    <textarea matInput rows="3" formControlName="description" placeholder="Descrição do produto"></textarea>
+  </mat-form-field>
+
+  <!-- Botões -->
+  <div style="margin-top: 16px; display: flex; gap: 8px;">
+    <button mat-raised-button color="primary" type="submit">
+      {{ isNew ? 'Adicionar' : 'Salvar Alterações' }}
+    </button>
+    <button mat-stroked-button color="warn" type="button" (click)="cancel()">
+      Cancelar
+    </button>
+  </div>
+</form>
